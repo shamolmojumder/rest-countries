@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
@@ -6,12 +7,18 @@ const CountryDetail = () => {
    const [country,setCountry] = useState({})
    const {population}=country;
 //    console.log(country);
-   useEffect(()=>{
-       const url=`https://restcountries.eu/rest/v2/name/${name}`
-       fetch(url)
-       .then(res=>res.json())
-       .then(data=>setCountry(data[0]))
-   },[])
+//    useEffect(()=>{
+//        const url=`https://restcountries.eu/rest/v2/name/${name}`
+//        fetch(url)
+//        .then(res=>res.json())
+//        .then(data=>setCountry(data[0]))
+//    },[])
+
+    useEffect(()=>{
+        axios(`https://restcountries.eu/rest/v2/name/${name}`)
+        .then(data=>setCountry(data.data[0]))
+    },[])
+
     return (
         <div>
             <h1>Country detail of {name} </h1>
